@@ -1,0 +1,5 @@
+# backend app
+this is backend with javascript
+- [Model_link](
+    https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbGdaX2RYNFdKS2RXUWIySk44dW5GQTVBLWN5UXxBQ3Jtc0ttVUdiTVNOS3MwaDdfVWNaOHFLZzEtWHNRRWNxTVJaTW5PQVN6NWFyQXczei1Mb1F4SUZOaERRNnA1azlyY2VkYkM4ZEt0ZEFVZ2RybDFyMHY1cERfa3VEOVhWUDN0X0U4TkFrSVlPb01ZZUdKc1IwTQ&q=https%3A%2F%2Fapp.eraser.io%2Fworkspace%2FYtPqZ1VogxGy1jzIDkzj%3Forigin%3Dshare&v=9B4CvtzXRpc
+)
