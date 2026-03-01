@@ -14,7 +14,7 @@ dotenv.config();
   }
 })().then(
   app.listen(process.env.PORT,()=>{
-    console.log(`server is running ${process.env.PORTin}`);
+    console.log(`server is running ${process.env.PORT}`);
     
   })
 )
