@@ -4,7 +4,7 @@ import { ApiError } from "../utils/ApiError.js"
 // import { use } from "react";
 import { uploadoncloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-
+import bcrypt from "bcrypt"
 const registerUser = asyncHandler(async (req, res) => {
   // get user datail from frontend
   //validation - not empty
@@ -23,7 +23,7 @@ const registerUser = asyncHandler(async (req, res) => {
   ) {
     throw new ApiError(400, "All fields are required");
   } if (!email.includes("@")) {
-    throw new ApiError(res.status(400).json({ message: "email is not valid" }))
+    throw new ApiError(400, "email is not valid")
   }
   const existedUser = await User.findOne(
     {
@@ -42,8 +42,13 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "avtar is required");
   }
 
+  console.log("Uploading avatar from:", avtarLocalpath);
   const avtar = await uploadoncloudinary(avtarLocalpath)
+  console.log("Avatar upload response:", avtar);
+  
+  console.log("Uploading cover image from:", coverImageLocalpath);
   const coverImage = await uploadoncloudinary(coverImageLocalpath)
+  console.log("Cover image upload response:", coverImage);
 
   if (!avtar) {
     throw new ApiError(400, "avtar file is required");

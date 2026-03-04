@@ -1,14 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 const userSchema = new Schema(
   {
-    name: {
+    fullname: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
       index: true,
-      lowercase: true,
     },
     email: {
       type: String,
@@ -18,11 +17,13 @@ const userSchema = new Schema(
       index: true,
       lowercase: true,
     },
-    fullname: {
+    username: {
       type: String,
       required: true,
+      unique: true,
       trim: true,
       index: true,
+      lowercase: true,
     },
     avtar: {
       type: String,
@@ -34,12 +35,12 @@ const userSchema = new Schema(
     WatchHistory: [
       {
         type: Schema.Types.ObjectId,
-        Ref: "Video",
+        ref: "Video",
       },
     ],
     password: {
       type: String,
-      required: [true, "Password is require"],
+      required: [true, "Password is required"],
     },
     refreshToken: {
       type: String,
@@ -50,10 +51,9 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) next();
-  this.password = bcrypt.hash(this.password, 10);
-  next();
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 userSchema.methods.isPassworCorrect = async function (password) {
@@ -82,9 +82,9 @@ userSchema.methods.generateRefreshToken = function () {
       username: this.username,
       fullname: this.fullname,
     },
-    process.env.ACCESS_TOKEN_SECRET,
+    process.env.REFRESH_TOKEN_SECRET,
     {
-      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
     }
   );
 };
