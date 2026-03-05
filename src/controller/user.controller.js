@@ -11,6 +11,7 @@ const generateAccessTokenAndgenerateRefreshToken = async (userId) => {
   try {
     
     const user = await User.findById(userId)
+    // dd
     const accessToken = user.generateAccessToken()
     const refreshToken = user.generateRefreshToken()
 
